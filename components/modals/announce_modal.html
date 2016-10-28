@@ -9,15 +9,27 @@
 
         <!-- FORM -->
         <form name="createGrpFrm">
+          <div ng-hide="edit===true">
+            {{selectedPost.cont}}
+          </div>
 
-      {{selectedPost.cont}}
+          <div ng-show="edit===true">
+            <textarea class="form-control" cols="200" rows="8" ng-model="edited">{{selectedPost.cont}}</textarea>
+          </div>
+          <br>
+          <div ng-show="edit===true">
 
+              <button type="button" class="btn btn-info" >Save</button>
+              <button type="button" class="btn btn-danger" ng-click="edit=false">Cancel</button>
 
+          </div>
         </form>
 
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+        <a  type="button" class="btn btn-info glyphicon glyphicon-pencil" data-toggle="tooltip" title="Update" ng-click="edit=true" ng-hide="edit===true"></a>
+
+        <button type="button" class="btn btn-info" data-dismiss="modal" ng-click="edit=false">Close</button>
         <!-- <button type="button" class="btn btn-primary" ng-disabled="createGrpFrm.$invalid" ng-click="newGroup(group)">Ok</button> -->
       </div>
     </div>

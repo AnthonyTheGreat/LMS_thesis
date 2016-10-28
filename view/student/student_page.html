@@ -1,4 +1,4 @@
-<section ng-include src="'components/partials/navbar.html'"></section>
+<section dir-nav></section>
 
 <div class="container-fluid">
   <br>
@@ -23,16 +23,22 @@
             </div>
         </script>
 
-  <uib-accordion>
+  <uib-accordion ng-repeat="sched in theSchedule">
     <div uib-accordion-group class="panel-default" >
       <uib-accordion-heading>
-        <h4>CRYPTOZOOLOGY</h4><section class="status" ng-show="!status"></section>
-        <h6><span class="glyphicon glyphicon-user" style="color:#d7b058;"></span> Teacher: Doofinsmirtz &nbsp&nbsp&nbsp<span class="glyphicon glyphicon-calendar" style="color:#d7b058;"></span> M W F 9:00 AM</h6>
+        <h4>{{sched.Subject}}</h4>
+        <!-- <section class="status" ng-show="!status"></section> -->
+        <h6>
+          <!-- <span class="glyphicon glyphicon-user" style="color:#d7b058;"></span>
+          Teacher: <span>{{sched.Teacher}}</span> -->
+          <!-- ng-bind="getTeacherName(sched.Teacher)" -->
+        </h6>
       </uib-accordion-heading>
       <uib-accordion-body>
         <ul>
-          <li ng-repeat="test in theQizzes">
-            <a href="#/start_quiz/{{test.$id}}">{{test.q_title}}</a>
+          <li ng-repeat="test in theQizzes | filter:sched.$id">
+            <a href="#/start_quiz/{{test.$id}}">{{test.q_title}} </a>
+            &#09; Date due: {{test.q_deadline * 1000 | date:'MMM d, y h:mm a'}}
           </li>
         </ul>
       </uib-accordion-body>
@@ -69,24 +75,24 @@
 
 
   <div class="container col-md-4 col-sm-8 pull-right">
-  <br>
-  <br>
-  <div  uib-carousel active="0" interval="7000" no-wrap="false">
-    <div  uib-slide  ng-repeat="slide in theEvents  | filter:{isActive:true}" index="$index">
-       <!-- | filter:{isActive:true} -->
-      <img  id ="slide" ng-src="{{slide.url}}" class="slider">
-      <div class="carousel-caption">
-        <h4>{{slide.name}}</h4>
-        <p>
-          {{slide.description}}<br>
-          Venue: {{ slide.venue}} <br>
-          Time: {{ slide.startEvent | date:'MMM d, y h:mm:ss a'}} - {{slide.endEvent | date:'MMM d, y h:mm:ss a'}}
-        </p>
+    <br>
+    <br>
+    <div  uib-carousel active="0" interval="7000" no-wrap="false">
+      <div  uib-slide  ng-repeat="slide in theEvents  | filter:{isActive:true}" index="$index">
+         <!-- | filter:{isActive:true} -->
+        <img  id ="slide" ng-src="{{slide.url}}" class="slider">
+        <div class="carousel-caption">
+          <h4>{{slide.name}}</h4>
+          <p>
+            {{slide.description}}<br>
+            Venue: {{ slide.venue}} <br>
+            Time: {{ slide.startEvent | date:'MMM d, y h:mm a'}} - {{slide.endEvent | date:'MMM d, y h:mm a'}}
+          </p>
+        </div>
       </div>
     </div>
   </div>
 </div>
-<!-- </div> -->
 <!-- </div> -->
 
 <script type="text/javascript">
